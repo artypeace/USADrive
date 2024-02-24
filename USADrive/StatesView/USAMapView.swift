@@ -20,9 +20,9 @@ struct USAMapView: View {
     
     var filteredStates: [USState] {
         if searchText.isEmpty {
-            return usstates
+            return states
         } else {
-            return usstates.filter { $0.name.lowercased().contains(searchText.lowercased()) || $0.shortForm.lowercased().contains(searchText.lowercased()) }
+            return states.filter { $0.name.lowercased().contains(searchText.lowercased()) || $0.shortForm.lowercased().contains(searchText.lowercased()) }
         }
     }
 

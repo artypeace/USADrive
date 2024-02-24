@@ -17,7 +17,7 @@ struct USState: Identifiable {
     var imageName: String
 }
 
-var usstates: [USState] = [
+var states: [USState] = [
     USState(name: "Alabama", shortForm: "AL", imageName: "AL"),
     USState(name: "Alaska", shortForm: "AK", imageName: "AK"),
     USState(name: "Arizona", shortForm: "AZ", imageName: "AZ"),
