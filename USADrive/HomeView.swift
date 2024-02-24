@@ -72,15 +72,19 @@ struct HomeView: View {
                                 Capsule()
                                     .fill(Color.white)
                                     .frame(width: 60, height: 4)
+                                HStack {
+                                    Image(systemName: "magnifyingglass")
+                                    TextField("Search your state", text: $searchText)
+                                      
+                                }
+                                .padding(.vertical, 10)
+                                .padding(.horizontal)
+                                .background(BlurView(style: .dark))
                             
-                                TextField("Search your state", text: $searchText)
-                                    .padding(.vertical, 10)
-                                    .padding(.horizontal)
-                                    .background(BlurView(style: .dark))
-
-                                    .cornerRadius(10) //TODO: change .cornerRadius (it will be deprecated to clipShape()
-                                    .preferredColorScheme(.dark)
-                                    .padding(.top, 10)
+                                .cornerRadius(10) //TODO: change .cornerRadius (it will be deprecated to clipShape()
+                                .preferredColorScheme(.dark)
+                                .padding(.top, 10)
+                                
                             }
                             .frame(height: 100)
                             
