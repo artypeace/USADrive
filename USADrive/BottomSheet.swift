@@ -60,7 +60,7 @@ struct BottomSheet: View {
                     }
                 }
             }
-            .padding(.top, 15)
+//            .padding(.top, 15)
         }
         }
 }

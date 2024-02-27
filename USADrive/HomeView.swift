@@ -16,6 +16,7 @@ struct HomeView: View {
             ))
     
     @State var searchText = ""
+    @State var showCancelButton = false
     @State var offset: CGFloat = 0
     @State var lastOffset: CGFloat = 0
     @GestureState var gestureOffset: CGFloat = 0
@@ -72,18 +73,45 @@ struct HomeView: View {
                                 Capsule()
                                     .fill(Color.white)
                                     .frame(width: 60, height: 4)
+//                                    .padding(.bottom, 20)
                                 HStack {
-                                    Image(systemName: "magnifyingglass")
-                                    TextField("Search your state", text: $searchText)
-                                      
+                                    HStack {
+                                        Image(systemName: "magnifyingglass")
+                                        TextField("Search your state", text: $searchText)
+                                            .onTapGesture {
+                                                withAnimation {
+                                                    showCancelButton = true
+                                                }
+                                            }
+                                        
+                                    }
+                                    //MARK: previous
+//                                                                    .padding(.vertical, 10)
+//                                                                    .padding(.horizontal)
+//                                                                    .background(BlurView(style: .dark))
+//                                    
+//                                                                    .cornerRadius(10) //TODO: change .cornerRadius (it will be deprecated to clipShape()
+//                                                                    .preferredColorScheme(.dark)
+//                                                                    .padding(.top, 10)
+                                    
+                                    //MARK: new version
+                                    .padding(5)
+                                    .background(BlurView(style: .dark))
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                                    // MARK: stroke / строчка
+                                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(.systemFill), lineWidth: 1)
+                                    )
+                                    if showCancelButton {
+                                        Button("cancel", action: {
+                                            hideKeyboard()
+                                            searchText = ""
+                                            withAnimation {
+                                                showCancelButton = false
+                                            }
+                                        })
+//                                        .transition(.move(edge: .trailing))
+                                    }
                                 }
-                                .padding(.vertical, 10)
-                                .padding(.horizontal)
-                                .background(BlurView(style: .dark))
-                            
-                                .cornerRadius(10) //TODO: change .cornerRadius (it will be deprecated to clipShape()
-                                .preferredColorScheme(.dark)
-                                .padding(.top, 10)
                                 
                             }
                             .frame(height: 100)
@@ -93,7 +121,7 @@ struct HomeView: View {
                                     .padding(.bottom)
                                     .padding(.bottom, offset == -((height - 100) / 3) ? ((height - 100) / 1.5) : 0)
                                     .preferredColorScheme(.dark) //
-                                    .padding(.top, 10) 
+//                                    .padding(.top, 10) 
                             }
                         }
                         .padding(.horizontal)
@@ -138,4 +166,11 @@ struct HomeView: View {
 
 #Preview {
     HomeView()
+}
+
+extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(
+            #selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
 }
