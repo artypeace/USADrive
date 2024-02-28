@@ -8,17 +8,13 @@
 import SwiftUI
 
 struct BlurView: UIViewRepresentable {
-    var style: UIBlurEffect.Style
-    
+    var blurStyle: UIBlurEffect.Style
+
     func makeUIView(context: Context) -> UIVisualEffectView {
-        
-        let view = UIVisualEffectView(effect: UIBlurEffect(style: style))
-        
-        return view
+        return UIVisualEffectView(effect: UIBlurEffect(style: blurStyle))
     }
-    
+
     func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
-        
+        uiView.effect = UIBlurEffect(style: blurStyle)
     }
-    
 }

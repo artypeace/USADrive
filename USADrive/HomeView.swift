@@ -11,12 +11,14 @@ import MapKit
 struct HomeView: View {
     
     @State private var region = MapCameraPosition.region(MKCoordinateRegion(
-                center: CLLocationCoordinate2D(latitude: 37.0902, longitude: -95.7129),
-                span: MKCoordinateSpan(latitudeDelta: 30, longitudeDelta: 30)
-            ))
+        center: CLLocationCoordinate2D(latitude: 37.0902, longitude: -95.7129),
+        span: MKCoordinateSpan(latitudeDelta: 30, longitudeDelta: 30)
+    ))
     
     @State var searchText = ""
     @State var showCancelButton = false
+    
+    @State var isShowingBottomSheet = true
     @State var offset: CGFloat = 0
     @State var lastOffset: CGFloat = 0
     @GestureState var gestureOffset: CGFloat = 0
@@ -35,132 +37,158 @@ struct HomeView: View {
             VStack {
                 Map(position: $region)
                     .ignoresSafeArea(edges: .top)
-                    .frame(height: 350)
-                Image("CA")
-                    .resizable()
-                    .frame(width: 250, height: 250)
-                    .clipShape(Circle())
-                    .overlay(
-                        Circle().stroke(.white, lineWidth: 4)
-                    )
-                    .shadow(radius: 7)
-                    .offset(y: -130)
-                    .padding(.bottom, -113)
+                    .frame(height: 650)
                 
-                VStack {
-                    Text("California")
-                        .font(.system(size: 35, weight: .bold))
-                        .padding(8)
-                    
-                    Text("Your State")
-                        .font(.system(size: 20, weight: .semibold))
-                    .foregroundStyle(.gray)
-                }
-                .padding(8)
-                .padding(.bottom, 30)
+                    .onTapGesture {
+                        withAnimation {
+                            isShowingBottomSheet = true
+                        }
+                    }
+
+            
                 Spacer()
             }
-            
-            GeometryReader { proxy -> AnyView in
-                let height = proxy.frame(in: .global).height
-                return AnyView (
+//            .blurredSheet(.init(.ultraThinMaterial), show: $isShowingBottomSheet) {
                 
-                    ZStack {
-                        BlurView(style: .systemMaterialDark)
-                            .clipShape(CustomCorner(corners: [.topLeft, .topRight], radius: 30))
-                        VStack {
-                            VStack {
-                                Capsule()
-                                    .fill(Color.white)
-                                    .frame(width: 60, height: 4)
-//                                    .padding(.bottom, 20)
-                                HStack {
-                                    HStack {
-                                        Image(systemName: "magnifyingglass")
-                                        TextField("Search your state", text: $searchText)
-                                            .onTapGesture {
-                                                withAnimation {
-                                                    showCancelButton = true
-                                                }
-                                            }
-                                        
-                                    }
-                                    //MARK: previous
-//                                                                    .padding(.vertical, 10)
-//                                                                    .padding(.horizontal)
-//                                                                    .background(BlurView(style: .dark))
+//            } content: {
+//                    VStack {
+//                        VStack {
+//                            HStack {
+//                                HStack {
+//                                    TextField("\(Image(systemName: "magnifyingglass")) Search your State", text: $searchText)
+//                                        .onTapGesture {
+//                                            withAnimation {
+//                                                showCancelButton = true
+//                                            }
+//                                        }
 //                                    
-//                                                                    .cornerRadius(10) //TODO: change .cornerRadius (it will be deprecated to clipShape()
-//                                                                    .preferredColorScheme(.dark)
-//                                                                    .padding(.top, 10)
-                                    
-                                    //MARK: new version
-                                    .padding(5)
-                                    .background(BlurView(style: .dark))
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                                    // MARK: stroke / строчка
-                                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(.systemFill), lineWidth: 1)
-                                    )
-                                    if showCancelButton {
-                                        Button("cancel", action: {
-                                            hideKeyboard()
-                                            searchText = ""
-                                            withAnimation {
-                                                showCancelButton = false
-                                            }
-                                        })
-//                                        .transition(.move(edge: .trailing))
+//                                }
+//                                .padding(.vertical, 10)
+//                                .padding(.horizontal, 10)
+//    //                            .background {
+//    //                                RoundedRectangle(cornerRadius: 10, style: .continuous)
+//    //                                .fill(.ultraThickMaterial)}
+//                                .background(BlurView(blurStyle: .regular))
+//                                .clipShape(RoundedRectangle(cornerRadius: 10))
+//                                
+//                                if showCancelButton {
+//                                    Button("cancel", action: {
+//                                        hideKeyboard()
+//                                        searchText = ""
+//                                        withAnimation {
+//                                            showCancelButton = false
+//                                        }
+//                                    })
+//                                }
+//                            }
+//                        } .padding(.top, 20)
+//                            .padding(.horizontal, 20)
+//                    
+//                    List {
+//                        ForEach(filteredStates) { state in
+//                            HStack {
+//                                Image(state.imageName)
+//                                    .resizable()
+//                                    .scaledToFit()
+//                                    .frame(width: 34, height: 30)
+//                                Text(state.name)
+//                                    .font(.title)
+//                                Spacer()
+//                                Text(state.shortForm)
+//                            }
+//                            .padding()
+//                            .onTapGesture {
+//                                // TODO: Реализуйте переход на другой экран с деталями выбранного штата
+//                                print("Выбран штат: \(state.name)")
+//                            }
+//                        }
+//                    }
+////                    .background(BlurView(blurStyle: .systemThinMaterial))
+//    //                .scrollContentBackground(.hidden)
+//                    .listStyle(.plain)
+//                }
+//    //                .background(Color.gray)
+//    //                .background(BlurView(style: .systemThickMaterial))
+//                        .presentationDetents([.medium, .large, .height(100)])
+//                        .presentationDragIndicator(.visible)
+//                        .presentationBackgroundInteraction(
+//                            .enabled(upThrough: .medium)
+//                        )
+//                
+//            }
+            .sheet(isPresented: $isShowingBottomSheet) {
+                VStack {
+                    VStack {
+                        HStack {
+                            HStack {
+                                TextField("\(Image(systemName: "magnifyingglass")) Search your State", text: $searchText)
+                                    .onTapGesture {
+                                        withAnimation {
+                                            showCancelButton = true
+                                        }
                                     }
-                                }
                                 
                             }
-                            .frame(height: 100)
+                            .padding(.vertical, 10)
+                            .padding(.horizontal, 10)
+//                            .background {
+//                                RoundedRectangle(cornerRadius: 10, style: .continuous)
+//                                .fill(.ultraThickMaterial)}
+                            .background(BlurView(blurStyle: .regular))
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
                             
-                            ScrollView(.vertical, showsIndicators: false) {
-                                BottomSheet(searchText: $searchText)
-                                    .padding(.bottom)
-                                    .padding(.bottom, offset == -((height - 100) / 3) ? ((height - 100) / 1.5) : 0)
-                                    .preferredColorScheme(.dark) //
-//                                    .padding(.top, 10) 
+                            if showCancelButton {
+                                Button("cancel", action: {
+                                    hideKeyboard()
+                                    searchText = ""
+                                    withAnimation {
+                                        showCancelButton = false
+                                    }
+                                })
                             }
                         }
-                        .padding(.horizontal)
-                        .frame(maxHeight: .infinity, alignment: .top)
+                    } .padding(.top, 20)
+                        .padding(.horizontal, 20)
+                
+                List {
+                    ForEach(filteredStates) { state in
+                        HStack {
+                            Image(state.imageName)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 34, height: 30)
+                            Text(state.name)
+                                .font(.title)
+                            Spacer()
+                            Text(state.shortForm)
+                        }
+                        .padding()
+                        .onTapGesture {
+                            // TODO: Реализуйте переход на другой экран с деталями выбранного штата
+                            print("Выбран штат: \(state.name)")
+                        }
                     }
-                        .offset(y: height - 100)
-                        .offset(y: -offset > 0 ? -offset <= (height - 100) ? offset : -(height - 100) : 0)
-                        .gesture(DragGesture().updating($gestureOffset, body: { value, out, _ in
-                            out = value.translation.height
-                            onChange()
-                        }).onEnded({ value in
-                                let maxHeight = height - 100
-                            withAnimation {
-                                if -offset > 100 && -offset < maxHeight / 2 {
-                                    offset = -(maxHeight / 3)
-                                }else if -offset > maxHeight / 2 {
-                                    offset = -maxHeight
-                                }
-                                else {
-                                    offset = 0
-                                }
-                            }
-                            lastOffset = offset
-                    }))
-                )
+                }
+                .background(BlurView(blurStyle: .systemThinMaterial))
+//                .scrollContentBackground(.hidden)
+                .listStyle(.plain)
             }
+//                .background(Color.gray)
+//                .background(BlurView(style: .systemThickMaterial))
+                    .presentationDetents([.medium, .large, .height(100)])
+                    .presentationDragIndicator(.visible)
+                    .presentationBackgroundInteraction(
+                        .enabled(upThrough: .medium)
+                    )
+            }
+//            .presentationBackground(.thinMaterial)
+//            .presentationCornerRadius(30)
+        
+
         }
     }
     
-    func onChange() {
-        DispatchQueue.main.async {
-            self.offset = gestureOffset + lastOffset
-        }
-    }
     
-    func getBlurRadius() -> CGFloat {
-        let progress = -offset / (UIScreen.main.bounds.height - 100)
-        return progress * 30 <= 30 ? progress * 30 : 30
-    }
     
 }
 

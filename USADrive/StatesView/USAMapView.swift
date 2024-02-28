@@ -30,11 +30,10 @@ struct USAMapView: View {
         ZStack {
             Map(coordinateRegion: $region, interactionModes: .all)
                 .ignoresSafeArea()
-                .edgesIgnoringSafeArea(.all)
+                .edgesIgnoringSafeArea(.top)
 
             VStack {
                 Spacer()
-//                bottomSheet
                     .sheet(isPresented: $showSheet) {
                         VStack {
                             Text("Choose your State")
@@ -46,10 +45,10 @@ struct USAMapView: View {
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                                 .padding()
 
-                            ScrollView(.vertical, showsIndicators: false) {
+                            ScrollView(.vertical, showsIndicators: true) {
                                 ForEach(filteredStates) { state in
                                     HStack {
-                                        Image(state.imageName) // Убедитесь, что у вас есть изображения флагов штатов в Assets
+                                        Image(state.imageName)
                                             .resizable()
                                             .scaledToFit()
                                             .frame(width: 30, height: 20)
@@ -68,11 +67,14 @@ struct USAMapView: View {
                         .background(RoundedRectangle(cornerRadius: 20).fill(Color.white))
                         .frame(maxHeight: 400)
                         .padding()
-                        .presentationDetents([.height(300)])
-
-//                        .presentationDetents([.fraction(0.15),.medium, .large,])
+//                        .presentationDetents([.height(300)])
+                        
+                        .presentationDetents([.medium, .large])
+                        .presentationDragIndicator(.visible)
+                        .presentationBackgroundInteraction(
+                            .enabled(upThrough: .medium)
+                        )
                     }
-                
             }.edgesIgnoringSafeArea(.bottom)
         }
     }

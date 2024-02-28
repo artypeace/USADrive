@@ -42,7 +42,8 @@ struct BottomSheet: View {
             //States List View
             
 
-            ScrollView(.vertical, showsIndicators: false) {
+//            ScrollView(.vertical, showsIndicators: false) {
+            List {
                 ForEach(filteredStates) { state in
                     HStack {
                         Image(state.imageName) 
@@ -60,6 +61,7 @@ struct BottomSheet: View {
                     }
                 }
             }
+//            }
 //            .padding(.top, 15)
         }
         }
@@ -67,6 +69,6 @@ struct BottomSheet: View {
 
 
 //#Preview {
-//    BottomSheet()
+//    BottomSheet(searchText: "")
 //}
 

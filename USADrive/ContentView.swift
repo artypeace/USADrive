@@ -13,8 +13,8 @@ struct ContentView: View {
     
     var body: some View {
 //        USAMapView()
-        HomeView()
-            .preferredColorScheme(.dark)
+        Home()
+//            .preferredColorScheme(.dark)
     }
 }
 

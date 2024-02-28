@@ -19,6 +19,7 @@
 		0467FE222B87903900FCAAD9 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0467FE212B87903900FCAAD9 /* BlurView.swift */; };
 		0467FE242B8790DA00FCAAD9 /* CustomCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0467FE232B8790DA00FCAAD9 /* CustomCorner.swift */; };
 		0467FE262B87917400FCAAD9 /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0467FE252B87917400FCAAD9 /* BottomSheet.swift */; };
+		0467FE2A2B8F0A9800FCAAD9 /* NewMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0467FE292B8F0A9800FCAAD9 /* NewMapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		0467FE212B87903900FCAAD9 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		0467FE232B8790DA00FCAAD9 /* CustomCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCorner.swift; sourceTree = "<group>"; };
 		0467FE252B87917400FCAAD9 /* BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
+		0467FE292B8F0A9800FCAAD9 /* NewMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				0417FD1E2B809E90007098C4 /* USADriveApp.swift */,
 				0417FD202B809E90007098C4 /* ContentView.swift */,
 				0467FE1F2B87902800FCAAD9 /* HomeView.swift */,
+				0467FE292B8F0A9800FCAAD9 /* NewMapView.swift */,
 				0467FE212B87903900FCAAD9 /* BlurView.swift */,
 				0467FE232B8790DA00FCAAD9 /* CustomCorner.swift */,
 				0467FE252B87917400FCAAD9 /* BottomSheet.swift */,
@@ -202,6 +205,7 @@
 				0417FD1F2B809E90007098C4 /* USADriveApp.swift in Sources */,
 				0467FE222B87903900FCAAD9 /* BlurView.swift in Sources */,
 				0467FE202B87902800FCAAD9 /* HomeView.swift in Sources */,
+				0467FE2A2B8F0A9800FCAAD9 /* NewMapView.swift in Sources */,
 				0417FD532B81E231007098C4 /* Home.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
