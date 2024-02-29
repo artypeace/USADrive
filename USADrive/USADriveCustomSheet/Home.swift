@@ -35,7 +35,7 @@ struct Home: View {
                 Map(position: $region)
                     .mapStyle(.standard(elevation: .realistic))
                     .ignoresSafeArea(edges: .top)
-                //                    .frame(height: 650)
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 120, trailing: 0))
                     .onTapGesture {
                         withAnimation {
                             isShowingBottomSheet = true
@@ -59,7 +59,7 @@ struct Home: View {
                 
             }
             
-            .bottomSheet(presentationDetents: [.medium, .large, .height(120)], isPresented: .constant(true), sheetCornerRadius: 20, isTransparentBG: true) {
+            .bottomSheet(presentationDetents: [.medium, .large, .height(120)], isPresented: .constant(true), sheetCornerRadius: 10, isTransparentBG: true) {
                 StatesList()
                     .background(content: {
                         Rectangle()
