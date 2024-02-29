@@ -26,7 +26,7 @@ var states: [USState] = [
     USState(name: "Colorado", shortForm: "CO", imageName: "CO"),
     USState(name: "Connecticut", shortForm: "CT", imageName: "CT"),
     USState(name: "Delaware", shortForm: "DE", imageName: "DE"),
-    USState(name: "District of Columbia", shortForm: "DС", imageName: "DС"),
+    USState(name: "District of Columbia", shortForm: "DС", imageName: "District"),
     USState(name: "Florida", shortForm: "FL", imageName: "FL"),
     USState(name: "Georgia", shortForm: "GA", imageName: "GA"),
     USState(name: "Hawaii", shortForm: "HI", imageName: "HI"),

@@ -123,12 +123,21 @@ struct Home: View {
                         HStack {
                             Image(state.imageName)
                                 .resizable()
-                                .scaledToFit()
-                                .frame(width: 50, height: 40)
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 60,height: 40)
+                                .clipShape(RoundedRectangle(cornerRadius: 8)) // Скругление углов
+                                   .overlay(
+                                       RoundedRectangle(cornerRadius: 8)
+                                           .stroke(Color.gray.opacity(0.3), lineWidth: 1) // Тонкая серая рамка
+                                   )
+                                   .shadow(color: .gray.opacity(0.3), radius: 3, x: 0, y: 2)
                             Text(state.name)
                                 .font(.title)
                             Spacer()
 //                            Text(state.shortForm)
+                            Image(systemName: "chevron.right")
+                                  .foregroundColor(.gray) // Вы можете настроить цвет символа
+                                  .font(.system(size: 20))
                         }
                         .padding()
                         
