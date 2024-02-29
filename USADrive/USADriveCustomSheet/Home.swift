@@ -10,13 +10,15 @@ import MapKit
 
 struct Home: View {
     
+    @State private var region = MapCameraPosition.region(MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 37.0902, longitude: -95.7129),
+        span: MKCoordinateSpan(latitudeDelta: 30, longitudeDelta: 30)
+    ))
     
-    @State private var searchText = ""
-    @State private var region = MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: 37.0902, longitude: -95.7129),
-            span: MKCoordinateSpan(latitudeDelta: 30, longitudeDelta: 30)
-        )
-  
+    @State var searchText = ""
+    @State var showCancelButton = false
+    @State var isShowingBottomSheet = true
+    
     
     var filteredStates: [USState] {
         if searchText.isEmpty {
@@ -29,63 +31,90 @@ struct Home: View {
     
     var body: some View {
         ZStack{
-            //MARK: Sample Coordinate Region
-            
-            Map(coordinateRegion: $region, interactionModes: .all)
-                    .ignoresSafeArea()
-                .overlay(alignment: .topTrailing, content: {
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "map")
-                            .font(.title2)
+            VStack {
+                Map(position: $region)
+                    .mapStyle(.standard(elevation: .realistic))
+                    .ignoresSafeArea(edges: .top)
+                //                    .frame(height: 650)
+                    .onTapGesture {
+                        withAnimation {
+                            isShowingBottomSheet = true
+                        }
                     }
-                    .padding()
-                })
-         
-                //Since we always need bottom sheet at bottom setting to try by default
-                .bottomSheet(presentationDetents: [.medium, .large, .height(120)], isPresented: .constant(true), sheetCornerRadius: 20, isTransparentBG: true) {
-                    StatesList()
-                        .background(content: {
-                            Rectangle()
-                                .fill(.ultraThinMaterial)
-                                .ignoresSafeArea()
-                        })
-                } onDismiss: {}
-
+                    .overlay(alignment: .topTrailing, content: {
+                        DoubleButton(
+                            topButtonImageName: "map.fill",
+                            bottomButtonImageName: "location"
+                        ) { tappedButton in
+                            switch tappedButton {
+                            case .top:
+                                print("Top button tapped")
+                            case .bottom:
+                                print("Bottom button tapped")
+                            }
+                        }
+                        .padding(.trailing, 10)
+                        .padding(.top, 10)
+                    })
+                
+            }
+            
+            .bottomSheet(presentationDetents: [.medium, .large, .height(120)], isPresented: .constant(true), sheetCornerRadius: 20, isTransparentBG: true) {
+                StatesList()
+                    .background(content: {
+                        Rectangle()
+                            .fill(.thinMaterial)
+                            .ignoresSafeArea()
+                    })
+            } onDismiss: {}
+            
         }
     }
     @ViewBuilder
     func StatesList()->some View{
         VStack {
-            Text("Choose your State")
-                .fontDesign(.monospaced)
-//                            .font(.headline)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.top)
-                .padding(.leading)
-            
-            TextField("Search your State", text: $searchText)
-//                .textFieldStyle(RoundedBorderTextFieldStyle())
-//                .padding()
+            HStack {
+                HStack {
+                    TextField("\(Image(systemName: "magnifyingglass")) Search your State", text: $searchText)
+                        .font(.title2)
+                        .onTapGesture {
+                            withAnimation {
+                                showCancelButton = true
+                            }
+                        }
+                    
+                }
                 .padding(.vertical, 10)
-                .padding(.horizontal)
+                .padding(.horizontal, 10)
                 .background {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .fill(.ultraThickMaterial)
-                }
+                    .fill(.ultraThickMaterial)}
                 
-            
+                if showCancelButton {
+                    Button("cancel", action: {
+                        hideKeyboard()
+                        searchText = ""
+                        withAnimation {
+                            showCancelButton = false
+                        }
+                    })
+                }
+            }
+        }
+        .padding(.top, 20)
+        .padding(.horizontal, 20)
+        
+        VStack {
             //States List View
-
             ScrollView(.vertical, showsIndicators: false) {
                 ForEach(filteredStates) { state in
                     HStack {
-                        Image(state.imageName) // Убедитесь, что у вас есть изображения флагов штатов в Assets
+                        Image(state.imageName)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 30, height: 20)
+                            .frame(width: 50, height: 40)
                         Text(state.name)
+                            .font(.title)
                         Spacer()
                         Text(state.shortForm)
                     }
@@ -96,10 +125,51 @@ struct Home: View {
                     }
                 }
             }
-            .padding(.top, 15)
+            //            .padding(.top, 15)
         }
     }
+    
 }
+
+
+struct DoubleButton: View {
+    var topButtonImageName: String
+    var bottomButtonImageName: String
+
+    var buttonTapped: (ButtonType) -> ()
+
+    enum ButtonType {
+        case top
+        case bottom
+    }
+    
+    var body: some View {
+        VStack(spacing: 0.0) {
+            button(buttonType: .top, imageName: topButtonImageName)
+            Color.gray.frame(height: 0.4)
+            button(buttonType: .bottom, imageName: bottomButtonImageName)
+            }
+        .frame(width: 44.0, height: 88.0)
+            .background {
+                Color.white
+                    .cornerRadius(10.0)
+                    .shadow(color: .gray, radius:2, x: 0.0, y: 2.0)
+            }
+        }
+
+    func button(buttonType: ButtonType, imageName: String) -> some View {
+        return Button(action: {
+            buttonTapped(buttonType)
+        }, label: {
+            Image(systemName: imageName)
+                .font(.system(size: 20))
+        })
+        .padding(10)
+        .foregroundColor(.gray)
+    }
+}
+
+
 
 
 #Preview {
