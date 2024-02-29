@@ -36,8 +36,8 @@ struct Home: View {
             VStack {
                 Map(position: $region)
                     .mapStyle(isHybridMap ? .hybrid : .standard)
-//                    .mapStyle(.standard(elevation: .realistic))
-//                    .mapStyle(.hybrid(elevation: .realistic))
+                //                    .mapStyle(.standard(elevation: .realistic))
+                //                    .mapStyle(.hybrid(elevation: .realistic))
                     .ignoresSafeArea(edges: .top)
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 120, trailing: 0))
                     .onTapGesture {
@@ -76,9 +76,9 @@ struct Home: View {
     }
     
     func toggleMapStyle() {
-           isHybridMap.toggle()
-           topButtonImageName = isHybridMap ? "globe.americas.fill" : "map.fill"
-       }
+        isHybridMap.toggle()
+        topButtonImageName = isHybridMap ? "globe.americas.fill" : "map.fill"
+    }
     
     
     @ViewBuilder
@@ -117,23 +117,27 @@ struct Home: View {
         
         VStack {
             //States List View
-            ScrollView(.vertical, showsIndicators: false) {
+            ScrollView(.vertical, showsIndicators: true) {
                 ForEach(filteredStates) { state in
-                    HStack {
-                        Image(state.imageName)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 50, height: 40)
-                        Text(state.name)
-                            .font(.title)
-                        Spacer()
-                        Text(state.shortForm)
+                    VStack(spacing: 0) {
+                        HStack {
+                            Image(state.imageName)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 50, height: 40)
+                            Text(state.name)
+                                .font(.title)
+                            Spacer()
+//                            Text(state.shortForm)
+                        }
+                        .padding()
+                        
+                        
+                        Rectangle()
+                            .frame(height: 1)
+                            .foregroundColor(Color.gray.opacity(0.3))
+                        //                                           .padding(.horizontal)
                     }
-                    .padding()
-                    
-//                    if state != filteredStates.last {
-//                        Divider()
-//                    }
                     
                     .onTapGesture {
                         // TODO: Реализуйте переход на другой экран с деталями выбранного штата
@@ -152,9 +156,9 @@ struct Home: View {
 struct DoubleButton: View {
     var topButtonImageName: String
     var bottomButtonImageName: String
-
+    
     var buttonTapped: (ButtonType) -> ()
-
+    
     enum ButtonType {
         case top
         case bottom
@@ -165,15 +169,15 @@ struct DoubleButton: View {
             button(buttonType: .top, imageName: topButtonImageName)
             Color.gray.frame(height: 0.4)
             button(buttonType: .bottom, imageName: bottomButtonImageName)
-            }
-        .frame(width: 44.0, height: 88.0)
-            .background {
-                Color(UIColor.secondarySystemBackground)
-                    .cornerRadius(10.0)
-                    .shadow(color: .gray, radius:1, x: 0.0, y: 0.0)
-            }
         }
-
+        .frame(width: 44.0, height: 88.0)
+        .background {
+            Color(UIColor.secondarySystemBackground)
+                .cornerRadius(10.0)
+                .shadow(color: .gray, radius:1, x: 0.0, y: 0.0)
+        }
+    }
+    
     func button(buttonType: ButtonType, imageName: String) -> some View {
         return Button(action: {
             buttonTapped(buttonType)
