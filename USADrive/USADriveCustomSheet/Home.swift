@@ -18,6 +18,8 @@ struct Home: View {
     @State var searchText = ""
     @State var showCancelButton = false
     @State var isShowingBottomSheet = true
+    @State private var isHybridMap: Bool = false
+    @State private var topButtonImageName: String = "map.fill"
     
     
     var filteredStates: [USState] {
@@ -33,7 +35,9 @@ struct Home: View {
         ZStack{
             VStack {
                 Map(position: $region)
-                    .mapStyle(.standard(elevation: .realistic))
+                    .mapStyle(isHybridMap ? .hybrid : .standard)
+//                    .mapStyle(.standard(elevation: .realistic))
+//                    .mapStyle(.hybrid(elevation: .realistic))
                     .ignoresSafeArea(edges: .top)
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 120, trailing: 0))
                     .onTapGesture {
@@ -43,12 +47,12 @@ struct Home: View {
                     }
                     .overlay(alignment: .topTrailing, content: {
                         DoubleButton(
-                            topButtonImageName: "map.fill",
+                            topButtonImageName: topButtonImageName,
                             bottomButtonImageName: "location"
                         ) { tappedButton in
                             switch tappedButton {
                             case .top:
-                                print("Top button tapped")
+                                toggleMapStyle()
                             case .bottom:
                                 print("Bottom button tapped")
                             }
@@ -70,6 +74,13 @@ struct Home: View {
             
         }
     }
+    
+    func toggleMapStyle() {
+           isHybridMap.toggle()
+           topButtonImageName = isHybridMap ? "globe.americas.fill" : "map.fill"
+       }
+    
+    
     @ViewBuilder
     func StatesList()->some View{
         VStack {
@@ -151,9 +162,9 @@ struct DoubleButton: View {
             }
         .frame(width: 44.0, height: 88.0)
             .background {
-                Color.white
+                Color(UIColor.secondarySystemBackground)
                     .cornerRadius(10.0)
-                    .shadow(color: .gray, radius:2, x: 0.0, y: 2.0)
+                    .shadow(color: .gray, radius:1, x: 0.0, y: 0.0)
             }
         }
 
@@ -165,7 +176,7 @@ struct DoubleButton: View {
                 .font(.system(size: 20))
         })
         .padding(10)
-        .foregroundColor(.gray)
+        .foregroundColor(Color(UIColor.secondaryLabel))
     }
 }
 
