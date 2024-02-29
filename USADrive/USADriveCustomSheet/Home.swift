@@ -130,10 +130,16 @@ struct Home: View {
                         Text(state.shortForm)
                     }
                     .padding()
+                    
+//                    if state != filteredStates.last {
+//                        Divider()
+//                    }
+                    
                     .onTapGesture {
                         // TODO: Реализуйте переход на другой экран с деталями выбранного штата
                         print("Выбран штат: \(state.name)")
                     }
+                    
                 }
             }
             //            .padding(.top, 15)
