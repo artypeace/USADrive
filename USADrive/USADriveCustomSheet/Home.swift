@@ -26,7 +26,7 @@ struct Home: View {
         if searchText.isEmpty {
             return states
         } else {
-            return states.filter { $0.name.lowercased().contains(searchText.lowercased()) || $0.shortForm.lowercased().contains(searchText.lowercased()) }
+            return states.filter { $0.name.lowercased().contains(searchText.lowercased()) }
         }
     }
     
@@ -36,12 +36,10 @@ struct Home: View {
             VStack {
                 Map(position: $region)
                     .mapStyle(isHybridMap ? .hybrid : .standard)
-                //                    .mapStyle(.standard(elevation: .realistic))
-                //                    .mapStyle(.hybrid(elevation: .realistic))
                     .ignoresSafeArea(edges: .top)
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 120, trailing: 0))
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 220, trailing: 0))
                     .onTapGesture {
-                        withAnimation {
+                        withAnimation(.easeInOut(duration: 0.5)) {
                             isShowingBottomSheet = true
                         }
                     }
@@ -63,7 +61,7 @@ struct Home: View {
                 
             }
             
-            .bottomSheet(presentationDetents: [.medium, .large, .height(120)], isPresented: .constant(true), sheetCornerRadius: 10, isTransparentBG: true) {
+            .bottomSheet(presentationDetents: [.medium, .large, .height(220)], isPresented: .constant(true), sheetCornerRadius: 10, isTransparentBG: true) {
                 StatesList()
                     .background(content: {
                         Rectangle()
@@ -92,8 +90,9 @@ struct Home: View {
                             withAnimation {
                                 showCancelButton = true
                             }
+                            let impactHeavy = UIImpactFeedbackGenerator(style: .light)
+                                impactHeavy.impactOccurred()
                         }
-                    
                 }
                 .padding(.vertical, 10)
                 .padding(.horizontal, 10)
@@ -103,10 +102,13 @@ struct Home: View {
                 
                 if showCancelButton {
                     Button("cancel", action: {
-                        hideKeyboard()
-                        searchText = ""
+//                        hideKeyboard()
+//                        searchText = ""
                         withAnimation {
+                            hideKeyboard()
+                            searchText = ""
                             showCancelButton = false
+    
                         }
                     })
                 }
@@ -124,7 +126,7 @@ struct Home: View {
                             Image(state.imageName)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .frame(width: 60,height: 40)
+                                .frame(width: 60,height: 38)
                                 .clipShape(RoundedRectangle(cornerRadius: 8)) // Скругление углов
                                    .overlay(
                                        RoundedRectangle(cornerRadius: 8)
@@ -132,14 +134,14 @@ struct Home: View {
                                    )
                                    .shadow(color: .gray.opacity(0.3), radius: 3, x: 0, y: 2)
                             Text(state.name)
-                                .font(.title)
+                                .font(.title2)
                             Spacer()
-//                            Text(state.shortForm)
                             Image(systemName: "chevron.right")
                                   .foregroundColor(.gray) // Вы можете настроить цвет символа
                                   .font(.system(size: 20))
                         }
-                        .padding()
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 10)
                         
                         
                         Rectangle()
@@ -151,6 +153,13 @@ struct Home: View {
                     .onTapGesture {
                         // TODO: Реализуйте переход на другой экран с деталями выбранного штата
                         print("Выбран штат: \(state.name)")
+                        withAnimation(.easeInOut(duration: 0.5)) {
+                            region = MapCameraPosition.region(MKCoordinateRegion(
+                                center: state.centerCoordinate,
+                                span: state.span
+                            ))
+                            hideKeyboard()
+                        }
                     }
                     
                 }
@@ -199,7 +208,11 @@ struct DoubleButton: View {
     }
 }
 
-
+extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
 
 
 #Preview {
