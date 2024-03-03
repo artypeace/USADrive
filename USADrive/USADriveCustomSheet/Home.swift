@@ -22,6 +22,8 @@ struct Home: View {
     @State private var topButtonImageName: String = "map.fill"
     
     
+    
+    
     var filteredStates: [USState] {
         if searchText.isEmpty {
             return states
@@ -58,18 +60,18 @@ struct Home: View {
                         .padding(.trailing, 10)
                         .padding(.top, 10)
                     })
-                
             }
             
-            .bottomSheet(presentationDetents: [.medium, .large, .height(220)], isPresented: .constant(true), sheetCornerRadius: 10, isTransparentBG: true) {
+            .bottomSheet(presentationDetents: [.medium, .large, .height(220)], isPresented: .constant(true), sheetCornerRadius: 30, isTransparentBG: false) {
                 StatesList()
                     .background(content: {
                         Rectangle()
-                            .fill(.thinMaterial)
+                            .fill(.white)
+//                            .fill(.thinMaterial)
+
                             .ignoresSafeArea()
                     })
             } onDismiss: {}
-            
         }
     }
     
@@ -102,14 +104,15 @@ struct Home: View {
                 
                 if showCancelButton {
                     Button("cancel", action: {
-//                        hideKeyboard()
-//                        searchText = ""
-                        withAnimation {
-                            hideKeyboard()
-                            searchText = ""
-                            showCancelButton = false
-    
-                        }
+                        hideKeyboard()
+                        searchText = ""
+                        showCancelButton = false
+//                        withAnimation {
+//                            hideKeyboard()
+//                            searchText = ""
+//                            showCancelButton = false
+//    
+//                        }
                     })
                 }
             }
@@ -160,6 +163,7 @@ struct Home: View {
                             ))
                             hideKeyboard()
                         }
+                     
                     }
                     
                 }
