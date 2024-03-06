@@ -8,14 +8,6 @@
 import SwiftUI
 import MapKit
 
-//MARK: State Model
-
-//struct USState: Identifiable {
-//    var id = UUID().uuidString
-//    var name: String
-//    var shortForm: String
-//    var imageName: String
-//}
 
 struct USState: Identifiable {
     var id = UUID().uuidString

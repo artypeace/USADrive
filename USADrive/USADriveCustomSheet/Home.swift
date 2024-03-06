@@ -22,8 +22,6 @@ struct Home: View {
     @State private var topButtonImageName: String = "map.fill"
     
     
-    
-    
     var filteredStates: [USState] {
         if searchText.isEmpty {
             return states
@@ -39,7 +37,7 @@ struct Home: View {
                 Map(position: $region)
                     .mapStyle(isHybridMap ? .hybrid : .standard)
                     .ignoresSafeArea(edges: .top)
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 220, trailing: 0))
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                     .onTapGesture {
                         withAnimation(.easeInOut(duration: 0.5)) {
                             isShowingBottomSheet = true
@@ -62,16 +60,37 @@ struct Home: View {
                     })
             }
             
-            .bottomSheet(presentationDetents: [.medium, .large, .height(220)], isPresented: .constant(true), sheetCornerRadius: 30, isTransparentBG: false) {
+            .bottomSheet(presentationDetents: [.medium, .large, .height(220)], isPresented: .constant(true),  isTransparentBG: true) {
                 StatesList()
                     .background(content: {
                         Rectangle()
-                            .fill(.white)
-//                            .fill(.thinMaterial)
+//                            .fill(.background)
+                            .fill(.thinMaterial)
 
                             .ignoresSafeArea()
                     })
             } onDismiss: {}
+            
+            HStack(spacing: 8) { // Для горизонтального расположения "Maps" и "Legal"
+                Text("Maps")
+                    .font(.system(size: 16))
+                    .fontWeight(.medium)
+                    .foregroundStyle(.primary.opacity(0.6))
+                    .padding(.top, 265) // Размещение на экране
+                    .padding(.leading, 10)
+                
+                Link(destination: URL(string: "https://gspe21-ssl.ls.apple.com/html/attribution-275.html")!) {
+                    Text("Legal")
+                        .underline() // Добавление подчеркивания к тексту "Legal"
+                        .font(.system(size: 9)) // Стилизация текста "Legal"
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.primary.opacity(0.8))
+                }
+                .foregroundColor(.primary.opacity(0.6))
+                .padding(.top, 265) // Обеспечиваем одинаковое размещение
+            }
+            .frame(maxWidth: .infinity, alignment: .leading) // Выравнивание блока по левому краю
+            .zIndex(1)
         }
     }
     
@@ -100,7 +119,10 @@ struct Home: View {
                 .padding(.horizontal, 10)
                 .background {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
-                    .fill(.ultraThickMaterial)}
+                        .fill(.thickMaterial)
+//                        .foregroundStyle(.placeholder)
+                }
+               
                 
                 if showCancelButton {
                     Button("cancel", action: {
@@ -138,6 +160,7 @@ struct Home: View {
                                    .shadow(color: .gray.opacity(0.3), radius: 3, x: 0, y: 2)
                             Text(state.name)
                                 .font(.title2)
+                            
                             Spacer()
                             Image(systemName: "chevron.right")
                                   .foregroundColor(.gray) // Вы можете настроить цвет символа
@@ -150,7 +173,6 @@ struct Home: View {
                         Rectangle()
                             .frame(height: 1)
                             .foregroundColor(Color.gray.opacity(0.3))
-                        //                                           .padding(.horizontal)
                     }
                     
                     .onTapGesture {

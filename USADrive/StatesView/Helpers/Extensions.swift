@@ -15,7 +15,6 @@ extension View {
         presentationDetents: Set<PresentationDetent>,
         isPresented: Binding<Bool>,
         dragIndicator: Visibility = .visible,
-        sheetCornerRadius: CGFloat?,
         largestUndimmedIdentifier: UISheetPresentationController.Detent.Identifier = .large,
         isTransparentBG: Bool = false,
         interactiveDisabled: Bool = true,
@@ -31,6 +30,7 @@ extension View {
                 .presentationBackgroundInteraction(
                     .enabled(upThrough: .medium)
                 )
+                .presentationCornerRadius(20)
 
                 .interactiveDismissDisabled(interactiveDisabled)
                 .onAppear {
@@ -53,7 +53,6 @@ extension View {
                          
                         controller.presentingViewController?.view.tintAdjustmentMode = .normal
                         sheet.largestUndimmedDetentIdentifier = largestUndimmedIdentifier
-                        sheet.preferredCornerRadius = sheetCornerRadius
                     } else {
                         print("NO Controller found")
                     }
