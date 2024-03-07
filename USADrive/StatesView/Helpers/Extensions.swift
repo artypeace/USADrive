@@ -16,7 +16,7 @@ extension View {
         isPresented: Binding<Bool>,
         dragIndicator: Visibility = .visible,
         largestUndimmedIdentifier: UISheetPresentationController.Detent.Identifier = .large,
-        isTransparentBG: Bool = false,
+        isTransparentBG: Bool,
         interactiveDisabled: Bool = true,
         @ViewBuilder content: @escaping ()->Content,
         onDismiss: @escaping ()->()

@@ -21,6 +21,9 @@ struct Home: View {
     @State private var isHybridMap: Bool = false
     @State private var topButtonImageName: String = "map.fill"
     
+    @State private var selectedState: USState?
+    @State private var showingStateDetailSheet = false
+    
     
     var filteredStates: [USState] {
         if searchText.isEmpty {
@@ -60,16 +63,136 @@ struct Home: View {
                     })
             }
             
-            .bottomSheet(presentationDetents: [.medium, .large, .height(220)], isPresented: .constant(true),  isTransparentBG: true) {
+            .bottomSheet(presentationDetents: [.medium, .large, .height(220)], isPresented: .constant(isShowingBottomSheet),  isTransparentBG: true) {
                 StatesList()
                     .background(content: {
                         Rectangle()
-//                            .fill(.background)
+                        //                            .fill(.background)
                             .fill(.thinMaterial)
-
+                        
                             .ignoresSafeArea()
                     })
             } onDismiss: {}
+            
+                
+                .bottomSheet(presentationDetents: [.height(220)], isPresented: .constant(showingStateDetailSheet), isTransparentBG: false) {
+                    if let selectedState = selectedState {
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Selected state: \(selectedState.name)")
+                                .font(.title2)
+                                .fontWeight(.semibold)
+                                .fontDesign(.rounded)
+                            
+                            Text("Select Vehicle Type License:")
+                                .font(.headline)
+                                .fontWeight(.medium)
+                                .foregroundStyle(.secondary)
+                            
+                            HStack(spacing: 10) {
+                                Button(action: {
+                                    // Действие для Car
+                                }) {
+                                    VStack {
+                                        Image(systemName: "car.fill")
+                                            .font(.title2)
+                                        Text("Car")
+                                            .font(.body)
+                                            .fontWeight(.semibold)
+                                    }
+                                    .padding()
+                                    .frame(height: 58)
+                                    .frame(width: 80)
+                                    .foregroundColor(.white) // Цвет иконки и текста
+                                    .background(Color.blue)
+                                    .cornerRadius(8)
+                                    .shadow(color: .gray, radius:0.5, x: 0.0, y: 0.0)
+
+                                }
+                                
+                                Button(action: {
+                                    // Действие для Moto
+                                }) {
+                                    VStack {
+                                        Image(systemName: "scooter")
+                                            .font(.title2)
+                                        Text("Moto")
+                                            .font(.body)
+                                            .fontWeight(.semibold)
+                                    }
+                                    //                                    .padding()
+                                    .frame(height: 58)
+                                    .frame(width: 80)
+                                    .foregroundColor(.blue) // Цвет иконки и текста
+                                    .background(Color(uiColor: .secondarySystemBackground))
+                                    .cornerRadius(8)
+                                    .shadow(color: .gray, radius:0.5, x: 0.0, y: 0.0)
+                                }
+                                
+                                Button(action: {
+                                    // Действие для CDL
+                                }) {
+                                    VStack {
+                                        Image(systemName: "bus")
+                                            .font(.title2)
+                                        Text("CDL")
+                                            .font(.body)
+                                            .fontWeight(.semibold)
+                                    }
+                                    //                                    .padding()
+                                    .frame(height: 58)
+                                    .frame(width: 80)
+                                    .foregroundColor(.blue) // Цвет иконки и текста
+                                    .background(Color(uiColor: .secondarySystemBackground))
+                                    .cornerRadius(8)
+                                    .shadow(color: .gray, radius:0.5, x: 0.0, y: 0.0)
+
+                                    
+                                }
+                                
+                                Button(action: {
+                                    // Действие для CDL
+                                }) {
+                                    VStack {
+                                        Image(systemName: "peacesign")
+                                            .font(.title2)
+                                        Text("UFO")
+                                            .font(.body)
+                                            .fontWeight(.semibold)
+                                    }
+                                    //                                    .padding()
+                                    .frame(height: 58)
+                                    .frame(width: 80)
+                                    .foregroundColor(.blue) // Цвет иконки и текста
+                                    .background(Color(uiColor: .secondarySystemBackground))
+                                    .cornerRadius(8)
+                                    .shadow(color: .gray, radius:0.5, x: 0.0, y: 0.0)
+                                }
+                            }
+                            .padding(.top, 10)
+                            .padding(.bottom, 20)
+                            
+                        }
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 220)
+                        //                        .padding(.leading, -50)
+                        .background(content: {
+                            Rectangle()
+                                .fill(.background)
+//                                                            .fill(.thinMaterial)
+                            
+                                .ignoresSafeArea()
+                        })
+                    }
+                } onDismiss: {
+                    // Логика при скрытии bottomSheet
+                }
+            
+            
+            
+            
+            //MARK: -новый bottom sheet с деталями о штате
+            
+            
             
             HStack(spacing: 8) { // Для горизонтального расположения "Maps" и "Legal"
                 Text("Maps")
@@ -112,7 +235,7 @@ struct Home: View {
                                 showCancelButton = true
                             }
                             let impactHeavy = UIImpactFeedbackGenerator(style: .light)
-                                impactHeavy.impactOccurred()
+                            impactHeavy.impactOccurred()
                         }
                 }
                 .padding(.vertical, 10)
@@ -120,21 +243,21 @@ struct Home: View {
                 .background {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .fill(.thickMaterial)
-//                        .foregroundStyle(.placeholder)
+                    //                        .foregroundStyle(.placeholder)
                 }
-               
+                
                 
                 if showCancelButton {
                     Button("cancel", action: {
                         hideKeyboard()
                         searchText = ""
                         showCancelButton = false
-//                        withAnimation {
-//                            hideKeyboard()
-//                            searchText = ""
-//                            showCancelButton = false
-//    
-//                        }
+                        //                        withAnimation {
+                        //                            hideKeyboard()
+                        //                            searchText = ""
+                        //                            showCancelButton = false
+                        //
+                        //                        }
                     })
                 }
             }
@@ -153,18 +276,18 @@ struct Home: View {
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 60,height: 38)
                                 .clipShape(RoundedRectangle(cornerRadius: 8)) // Скругление углов
-                                   .overlay(
-                                       RoundedRectangle(cornerRadius: 8)
-                                           .stroke(Color.gray.opacity(0.3), lineWidth: 1) // Тонкая серая рамка
-                                   )
-                                   .shadow(color: .gray.opacity(0.3), radius: 3, x: 0, y: 2)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .stroke(Color.gray.opacity(0.3), lineWidth: 1) // Тонкая серая рамка
+                                )
+                                .shadow(color: .gray.opacity(0.3), radius: 3, x: 0, y: 2)
                             Text(state.name)
                                 .font(.title2)
                             
                             Spacer()
                             Image(systemName: "chevron.right")
-                                  .foregroundColor(.gray) // Вы можете настроить цвет символа
-                                  .font(.system(size: 20))
+                                .foregroundColor(.gray) // Вы можете настроить цвет символа
+                                .font(.system(size: 20))
                         }
                         .padding(.horizontal, 20)
                         .padding(.vertical, 10)
@@ -184,16 +307,16 @@ struct Home: View {
                                 span: state.span
                             ))
                             hideKeyboard()
+                            selectedState = state
+                            isShowingBottomSheet = false
+                            showingStateDetailSheet = true
                         }
-                     
                     }
-                    
                 }
             }
             //            .padding(.top, 15)
         }
     }
-    
 }
 
 

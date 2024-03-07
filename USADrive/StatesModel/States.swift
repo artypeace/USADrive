@@ -8,7 +8,6 @@
 import SwiftUI
 import MapKit
 
-
 struct USState: Identifiable {
     var id = UUID().uuidString
     var name: String
@@ -16,8 +15,6 @@ struct USState: Identifiable {
     var centerCoordinate: CLLocationCoordinate2D
     var span: MKCoordinateSpan
 }
-
-
 
 
 var states: [USState] = [
