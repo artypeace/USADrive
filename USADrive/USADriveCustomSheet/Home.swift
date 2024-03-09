@@ -75,7 +75,7 @@ struct Home: View {
             } onDismiss: {}
             
                 
-                .bottomSheet(presentationDetents: [.height(220)], isPresented: .constant(showingStateDetailSheet), isTransparentBG: false) {
+                .bottomSheet(presentationDetents: [.height(220)], isPresented: .constant(showingStateDetailSheet), dragIndicator: .hidden, isTransparentBG: false) {
                     if let selectedState = selectedState {
                         VStack(alignment: .leading, spacing: 10) {
                             Text("Selected state: \(selectedState.name)")
