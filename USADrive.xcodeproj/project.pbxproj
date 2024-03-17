@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040EC6F02B9F41CC00C9CAA5 /* AnimatedBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040EC6EF2B9F41CC00C9CAA5 /* AnimatedBackgroundView.swift */; };
 		0417FD1F2B809E90007098C4 /* USADriveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0417FD1E2B809E90007098C4 /* USADriveApp.swift */; };
 		0417FD212B809E90007098C4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0417FD202B809E90007098C4 /* ContentView.swift */; };
 		0417FD232B809E92007098C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0417FD222B809E92007098C4 /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		040EC6EF2B9F41CC00C9CAA5 /* AnimatedBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedBackgroundView.swift; sourceTree = "<group>"; };
 		0417FD1B2B809E90007098C4 /* USADrive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = USADrive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0417FD1E2B809E90007098C4 /* USADriveApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USADriveApp.swift; sourceTree = "<group>"; };
 		0417FD202B809E90007098C4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				0417FD332B80ADF3007098C4 /* Extensions.swift */,
+				040EC6EF2B9F41CC00C9CAA5 /* AnimatedBackgroundView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -198,6 +201,7 @@
 				0467FE262B87917400FCAAD9 /* BottomSheet.swift in Sources */,
 				0417FD2E2B80AAC2007098C4 /* States.swift in Sources */,
 				0417FD312B80AD9C007098C4 /* USAMapView.swift in Sources */,
+				040EC6F02B9F41CC00C9CAA5 /* AnimatedBackgroundView.swift in Sources */,
 				0417FD212B809E90007098C4 /* ContentView.swift in Sources */,
 				0417FD1F2B809E90007098C4 /* USADriveApp.swift in Sources */,
 				0467FE222B87903900FCAAD9 /* BlurView.swift in Sources */,

@@ -8,8 +8,12 @@
 import SwiftUI
 import MapKit
 
+
+
 struct Home: View {
-    
+
+    @Environment(\.colorScheme) var colorScheme
+
     @State private var region = MapCameraPosition.region(MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 37.0902, longitude: -95.7129),
         span: MKCoordinateSpan(latitudeDelta: 30, longitudeDelta: 30)
@@ -24,6 +28,7 @@ struct Home: View {
     @State private var selectedState: USState?
     @State private var showingStateDetailSheet = false
     
+    @State private var darkButtonColor: Color = Color(red: 226 / 255, green: 226 / 255, blue: 226 / 255)
     
     var filteredStates: [USState] {
         if searchText.isEmpty {
@@ -69,119 +74,158 @@ struct Home: View {
                         Rectangle()
                         //                            .fill(.background)
                             .fill(.thinMaterial)
-                        
                             .ignoresSafeArea()
                     })
             } onDismiss: {}
             
-                
+            
                 .bottomSheet(presentationDetents: [.height(220)], isPresented: .constant(showingStateDetailSheet), dragIndicator: .hidden, isTransparentBG: false) {
                     if let selectedState = selectedState {
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("Selected state: \(selectedState.name)")
-                                .font(.title2)
-                                .fontWeight(.semibold)
-                                .fontDesign(.rounded)
+                        VStack(alignment: .leading, spacing: 5) {
                             
-                            Text("Select Vehicle Type License:")
-                                .font(.headline)
-                                .fontWeight(.medium)
-                                .foregroundStyle(.secondary)
+                            HStack {
+                                Text("Selected state: \(selectedState.imageName)")
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.black)
+                                    .padding(.leading, 20)
+                                    .padding(.top, 20)
+                                Spacer()
+                                Button(action: {
+                                    withAnimation(.easeInOut(duration: 0.5)) {
+                                        showingStateDetailSheet = false
+                                        isShowingBottomSheet = true
+                                    }
+                                }) {
+                                    Image(systemName: "xmark.circle")
+                                        .font(.title)
+                                        .fontDesign(.rounded)
+                                        .foregroundColor(.black)
+                                        .shadow(color: .gray, radius:0.5, x: 0.0, y: 0.0)
+                                        .padding(.trailing, 20)
+                                        .padding(.top, 20)
+                                }
+                            }
+
                             
-                            HStack(spacing: 10) {
+                            
+                            Divider()
+                                .padding(.horizontal, 20)
+                            VStack {
+                                Text("Please, select the vehicle type license:")
+                                    .font(.title3)
+                                    .fontWeight(.medium)
+                                    .fontDesign(.rounded)
+                                    .foregroundStyle(.black)
+                                    .padding(.leading, 20)
+                                    .padding(.trailing, 20)
+                                //                                    .padding(.top, 10)
+                            }
+                            //                            Divider()
+                            
+                            HStack() {
                                 Button(action: {
                                     // Действие для Car
                                 }) {
                                     VStack {
-                                        Image(systemName: "car.fill")
+                                        Image(systemName: "car")
+                                            .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
                                             .font(.title2)
                                         Text("Car")
                                             .font(.body)
                                             .fontWeight(.semibold)
+                                            .fontDesign(.rounded)
                                     }
                                     .padding()
                                     .frame(height: 58)
-                                    .frame(width: 80)
-                                    .foregroundColor(.white) // Цвет иконки и текста
-                                    .background(Color.blue)
-                                    .cornerRadius(8)
-                                    .shadow(color: .gray, radius:0.5, x: 0.0, y: 0.0)
+                                    .frame(width: 106)
+                                    .foregroundColor(.black) // Цвет иконки и текста
+                                    .background(colorScheme == .dark ? darkButtonColor : .white)                                  .cornerRadius(8) //
+                                    .shadow(color: Color.gray.opacity(0.4), radius: 5, x: 5, y: 5)
+                                    .shadow(color: colorScheme == .dark ? darkButtonColor.opacity(0.7) : Color.white.opacity(0.7), radius: 5, x: -5, y: -5)
 
+                                    .padding(.leading, 10)
+                                    
                                 }
+                                
+                                Spacer()
                                 
                                 Button(action: {
                                     // Действие для Moto
                                 }) {
                                     VStack {
-                                        Image(systemName: "scooter")
-                                            .font(.title2)
+                                        Image("motofront2")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 30, height: 30)
+                                            .padding(.bottom, -10)
                                         Text("Moto")
                                             .font(.body)
                                             .fontWeight(.semibold)
+                                            .fontDesign(.rounded)
+                                        
                                     }
-                                    //                                    .padding()
                                     .frame(height: 58)
-                                    .frame(width: 80)
-                                    .foregroundColor(.blue) // Цвет иконки и текста
-                                    .background(Color(uiColor: .secondarySystemBackground))
-                                    .cornerRadius(8)
-                                    .shadow(color: .gray, radius:0.5, x: 0.0, y: 0.0)
+                                    .frame(width: 106)
+                                    .foregroundColor(.black) // Цвет иконки и текста
+//                                    .background(darkButtonColor)
+                                    .background(colorScheme == .dark ? darkButtonColor : .white) // Фон кнопки
+
+//                                    .background(.white)
+                                    
+                                    .cornerRadius(8) //
+                                    .shadow(color: Color.gray.opacity(0.4), radius: 5, x: 5, y: 5)
+                                    .shadow(color: colorScheme == .dark ? darkButtonColor.opacity(0.7) : Color.white.opacity(0.7), radius: 5, x: -5, y: -5)
                                 }
+                                
+                                Spacer()
                                 
                                 Button(action: {
                                     // Действие для CDL
                                 }) {
                                     VStack {
                                         Image(systemName: "bus")
+                                        
                                             .font(.title2)
                                         Text("CDL")
                                             .font(.body)
                                             .fontWeight(.semibold)
+                                            .fontDesign(.rounded)
                                     }
-                                    //                                    .padding()
                                     .frame(height: 58)
-                                    .frame(width: 80)
-                                    .foregroundColor(.blue) // Цвет иконки и текста
-                                    .background(Color(uiColor: .secondarySystemBackground))
-                                    .cornerRadius(8)
-                                    .shadow(color: .gray, radius:0.5, x: 0.0, y: 0.0)
-
+                                    .frame(width: 106)
+                                    .foregroundColor(.black) // Цвет иконки и текста
+                                    .background(colorScheme == .dark ? darkButtonColor : .white)                                                                      .cornerRadius(8)
+                                    .shadow(color: Color.gray.opacity(0.4), radius: 5, x: 5, y: 5)
+                                    .shadow(color: colorScheme == .dark ? darkButtonColor.opacity(0.7) : Color.white.opacity(0.7), radius: 5, x: -5, y: -5)
+//                                    .shadow(color: .gray, radius:0.5, x: 0.0, y: 0.0)
+                                    
                                     
                                 }
                                 
-                                Button(action: {
-                                    // Действие для CDL
-                                }) {
-                                    VStack {
-                                        Image(systemName: "peacesign")
-                                            .font(.title2)
-                                        Text("UFO")
-                                            .font(.body)
-                                            .fontWeight(.semibold)
-                                    }
-                                    //                                    .padding()
-                                    .frame(height: 58)
-                                    .frame(width: 80)
-                                    .foregroundColor(.blue) // Цвет иконки и текста
-                                    .background(Color(uiColor: .secondarySystemBackground))
-                                    .cornerRadius(8)
-                                    .shadow(color: .gray, radius:0.5, x: 0.0, y: 0.0)
-                                }
                             }
                             .padding(.top, 10)
-                            .padding(.bottom, 20)
+                            .padding(.bottom, 10)
+                            .padding(.trailing, 30)
+                            .padding(.leading, 10)
                             
+                            Divider()
+                                .padding(.horizontal, 20)
+                            
+                            //                            VStack(alignment: .center) {
+                            //                                Text("Driving law may slightly differ by state")
+                            //                                    .font(.headline)
+                            //                                    .padding(.leading, 40)
+                            //                            }
+                            Spacer()
+                            
+                            Spacer()
                         }
                         .frame(maxWidth: .infinity)
                         .frame(height: 220)
-                        //                        .padding(.leading, -50)
-                        .background(content: {
-                            Rectangle()
-                                .fill(.background)
-//                                                            .fill(.thinMaterial)
-                            
-                                .ignoresSafeArea()
-                        })
+                        
+                        .background(AnimatedBackgroundView().edgesIgnoringSafeArea(.all))
+                        
                     }
                 } onDismiss: {
                     // Логика при скрытии bottomSheet

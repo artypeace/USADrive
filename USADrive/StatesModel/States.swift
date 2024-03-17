@@ -68,7 +68,7 @@ var states: [USState] = [
     ),
     USState(
         name: "District of Columbia",
-        imageName: "District",
+        imageName: "DC",
         centerCoordinate: CLLocationCoordinate2D(latitude: 38.897438, longitude: -77.026817),
         span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
     ),
