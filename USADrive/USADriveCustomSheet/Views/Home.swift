@@ -12,12 +12,16 @@ import MapKit
 
 struct Home: View {
 
+    @ObservedObject var appState: AppState
     @Environment(\.colorScheme) var colorScheme
 
     @State private var region = MapCameraPosition.region(MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 37.0902, longitude: -95.7129),
         span: MKCoordinateSpan(latitudeDelta: 30, longitudeDelta: 30)
     ))
+    
+    
+    @State private var showMainScreen = false
     
     @State var searchText = ""
     @State var showCancelButton = false
@@ -72,17 +76,14 @@ struct Home: View {
                 StatesList()
                     .background(content: {
                         Rectangle()
-                        //                            .fill(.background)
                             .fill(.thinMaterial)
                             .ignoresSafeArea()
                     })
             } onDismiss: {}
             
-            
                 .bottomSheet(presentationDetents: [.height(220)], isPresented: .constant(showingStateDetailSheet), dragIndicator: .hidden, isTransparentBG: false) {
                     if let selectedState = selectedState {
                         VStack(alignment: .leading, spacing: 5) {
-                            
                             HStack {
                                 Text("Selected state: \(selectedState.imageName)")
                                     .font(.title)
@@ -106,7 +107,6 @@ struct Home: View {
                                         .padding(.top, 20)
                                 }
                             }
-
                             
                             
                             Divider()
@@ -119,13 +119,16 @@ struct Home: View {
                                     .foregroundStyle(.black)
                                     .padding(.leading, 20)
                                     .padding(.trailing, 20)
-                                //                                    .padding(.top, 10)
                             }
-                            //                            Divider()
                             
                             HStack() {
                                 Button(action: {
                                     // Действие для Car
+                                    withAnimation(.easeInOut(duration: 0.5)) {
+                                        showingStateDetailSheet = false
+                                        isShowingBottomSheet = false
+                                        appState.rootScreen = .mainScreen
+                                    }
                                 }) {
                                     VStack {
                                         Image(systemName: "car")
@@ -143,11 +146,8 @@ struct Home: View {
                                     .background(colorScheme == .dark ? darkButtonColor : .white)                                  .cornerRadius(8) //
                                     .shadow(color: Color.gray.opacity(0.4), radius: 5, x: 5, y: 5)
                                     .shadow(color: colorScheme == .dark ? darkButtonColor.opacity(0.7) : Color.white.opacity(0.7), radius: 5, x: -5, y: -5)
-
                                     .padding(.leading, 10)
-                                    
                                 }
-                                
                                 Spacer()
                                 
                                 Button(action: {
@@ -163,21 +163,16 @@ struct Home: View {
                                             .font(.body)
                                             .fontWeight(.semibold)
                                             .fontDesign(.rounded)
-                                        
                                     }
                                     .frame(height: 58)
                                     .frame(width: 106)
                                     .foregroundColor(.black) // Цвет иконки и текста
-//                                    .background(darkButtonColor)
                                     .background(colorScheme == .dark ? darkButtonColor : .white) // Фон кнопки
 
-//                                    .background(.white)
-                                    
                                     .cornerRadius(8) //
                                     .shadow(color: Color.gray.opacity(0.4), radius: 5, x: 5, y: 5)
                                     .shadow(color: colorScheme == .dark ? darkButtonColor.opacity(0.7) : Color.white.opacity(0.7), radius: 5, x: -5, y: -5)
                                 }
-                                
                                 Spacer()
                                 
                                 Button(action: {
@@ -185,7 +180,6 @@ struct Home: View {
                                 }) {
                                     VStack {
                                         Image(systemName: "bus")
-                                        
                                             .font(.title2)
                                         Text("CDL")
                                             .font(.body)
@@ -198,11 +192,7 @@ struct Home: View {
                                     .background(colorScheme == .dark ? darkButtonColor : .white)                                                                      .cornerRadius(8)
                                     .shadow(color: Color.gray.opacity(0.4), radius: 5, x: 5, y: 5)
                                     .shadow(color: colorScheme == .dark ? darkButtonColor.opacity(0.7) : Color.white.opacity(0.7), radius: 5, x: -5, y: -5)
-//                                    .shadow(color: .gray, radius:0.5, x: 0.0, y: 0.0)
-                                    
-                                    
                                 }
-                                
                             }
                             .padding(.top, 10)
                             .padding(.bottom, 10)
@@ -232,12 +222,7 @@ struct Home: View {
                 }
             
             
-            
-            
             //MARK: -новый bottom sheet с деталями о штате
-            
-            
-            
             HStack(spacing: 8) { // Для горизонтального расположения "Maps" и "Legal"
                 Text("Maps")
                     .font(.system(size: 16))
@@ -258,6 +243,9 @@ struct Home: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading) // Выравнивание блока по левому краю
             .zIndex(1)
+        }
+        .fullScreenCover(isPresented: $showMainScreen) {
+            MainScreen()
         }
     }
     
@@ -286,23 +274,21 @@ struct Home: View {
                 .padding(.horizontal, 10)
                 .background {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .fill(.thickMaterial)
-                    //                        .foregroundStyle(.placeholder)
+                        .fill(.ultraThickMaterial)
                 }
                 
                 
                 if showCancelButton {
-                    Button("cancel", action: {
+                    Button(action: {
+
                         hideKeyboard()
                         searchText = ""
                         showCancelButton = false
-                        //                        withAnimation {
-                        //                            hideKeyboard()
-                        //                            searchText = ""
-                        //                            showCancelButton = false
-                        //
-                        //                        }
-                    })
+                    }) {
+                        Image(systemName: "xmark.circle")
+                            .font(.title)
+                            .foregroundColor(Color(uiColor: .gray).opacity(0.9))
+                    }
                 }
             }
         }
@@ -408,6 +394,6 @@ extension View {
 }
 
 
-#Preview {
-    Home()
-}
+//#Preview {
+//    Home(appState: <#AppState#>)
+//}
