@@ -9,9 +9,17 @@ import SwiftUI
 
 @main
 struct USADriveApp: App {
+    
+    @StateObject var appState = AppState()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            switch appState.rootScreen {
+            case .home:
+                Home(appState: appState)
+            case .mainScreen:
+                MainScreen()
+            }
         }
     }
 }

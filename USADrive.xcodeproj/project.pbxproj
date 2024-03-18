@@ -13,13 +13,13 @@
 		0417FD232B809E92007098C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0417FD222B809E92007098C4 /* Assets.xcassets */; };
 		0417FD262B809E92007098C4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0417FD252B809E92007098C4 /* Preview Assets.xcassets */; };
 		0417FD2E2B80AAC2007098C4 /* States.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0417FD2D2B80AAC2007098C4 /* States.swift */; };
-		0417FD312B80AD9C007098C4 /* USAMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0417FD302B80AD9C007098C4 /* USAMapView.swift */; };
 		0417FD342B80ADF3007098C4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0417FD332B80ADF3007098C4 /* Extensions.swift */; };
 		0417FD532B81E231007098C4 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0417FD522B81E231007098C4 /* Home.swift */; };
-		0467FE202B87902800FCAAD9 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0467FE1F2B87902800FCAAD9 /* HomeView.swift */; };
+		042D52642BA878CB00CF00C8 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042D52632BA878CB00CF00C8 /* AppState.swift */; };
+		042D52682BA88DC500CF00C8 /* Neumorphic in Frameworks */ = {isa = PBXBuildFile; productRef = 042D52672BA88DC500CF00C8 /* Neumorphic */; };
 		0467FE222B87903900FCAAD9 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0467FE212B87903900FCAAD9 /* BlurView.swift */; };
 		0467FE242B8790DA00FCAAD9 /* CustomCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0467FE232B8790DA00FCAAD9 /* CustomCorner.swift */; };
-		0467FE262B87917400FCAAD9 /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0467FE252B87917400FCAAD9 /* BottomSheet.swift */; };
+		0479FA7C2BA8493400915427 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0479FA7B2BA8493400915427 /* MainScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,13 +30,12 @@
 		0417FD222B809E92007098C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0417FD252B809E92007098C4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0417FD2D2B80AAC2007098C4 /* States.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = States.swift; sourceTree = "<group>"; };
-		0417FD302B80AD9C007098C4 /* USAMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USAMapView.swift; sourceTree = "<group>"; };
 		0417FD332B80ADF3007098C4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		0417FD522B81E231007098C4 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
-		0467FE1F2B87902800FCAAD9 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		042D52632BA878CB00CF00C8 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		0467FE212B87903900FCAAD9 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		0467FE232B8790DA00FCAAD9 /* CustomCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCorner.swift; sourceTree = "<group>"; };
-		0467FE252B87917400FCAAD9 /* BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
+		0479FA7B2BA8493400915427 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				042D52682BA88DC500CF00C8 /* Neumorphic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,10 +74,6 @@
 				0417FD2C2B80AA92007098C4 /* StatesModel */,
 				0417FD1E2B809E90007098C4 /* USADriveApp.swift */,
 				0417FD202B809E90007098C4 /* ContentView.swift */,
-				0467FE1F2B87902800FCAAD9 /* HomeView.swift */,
-				0467FE212B87903900FCAAD9 /* BlurView.swift */,
-				0467FE232B8790DA00FCAAD9 /* CustomCorner.swift */,
-				0467FE252B87917400FCAAD9 /* BottomSheet.swift */,
 				0417FD222B809E92007098C4 /* Assets.xcassets */,
 				0417FD242B809E92007098C4 /* Preview Content */,
 			);
@@ -104,7 +100,6 @@
 			isa = PBXGroup;
 			children = (
 				0417FD322B80ADCA007098C4 /* Helpers */,
-				0417FD302B80AD9C007098C4 /* USAMapView.swift */,
 			);
 			path = StatesView;
 			sourceTree = "<group>";
@@ -114,6 +109,8 @@
 			children = (
 				0417FD332B80ADF3007098C4 /* Extensions.swift */,
 				040EC6EF2B9F41CC00C9CAA5 /* AnimatedBackgroundView.swift */,
+				0467FE212B87903900FCAAD9 /* BlurView.swift */,
+				0467FE232B8790DA00FCAAD9 /* CustomCorner.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -121,9 +118,19 @@
 		0417FD512B81E1EF007098C4 /* USADriveCustomSheet */ = {
 			isa = PBXGroup;
 			children = (
-				0417FD522B81E231007098C4 /* Home.swift */,
+				042D52632BA878CB00CF00C8 /* AppState.swift */,
+				042D52652BA87E8C00CF00C8 /* Views */,
 			);
 			path = USADriveCustomSheet;
+			sourceTree = "<group>";
+		};
+		042D52652BA87E8C00CF00C8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0479FA7B2BA8493400915427 /* MainScreen.swift */,
+				0417FD522B81E231007098C4 /* Home.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,6 +149,9 @@
 			dependencies = (
 			);
 			name = USADrive;
+			packageProductDependencies = (
+				042D52672BA88DC500CF00C8 /* Neumorphic */,
+			);
 			productName = USADrive;
 			productReference = 0417FD1B2B809E90007098C4 /* USADrive.app */;
 			productType = "com.apple.product-type.application";
@@ -170,6 +180,9 @@
 				Base,
 			);
 			mainGroup = 0417FD122B809E90007098C4;
+			packageReferences = (
+				042D52662BA88DC500CF00C8 /* XCRemoteSwiftPackageReference "neumorphic" */,
+			);
 			productRefGroup = 0417FD1C2B809E90007098C4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -197,15 +210,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				0417FD342B80ADF3007098C4 /* Extensions.swift in Sources */,
+				042D52642BA878CB00CF00C8 /* AppState.swift in Sources */,
 				0467FE242B8790DA00FCAAD9 /* CustomCorner.swift in Sources */,
-				0467FE262B87917400FCAAD9 /* BottomSheet.swift in Sources */,
 				0417FD2E2B80AAC2007098C4 /* States.swift in Sources */,
-				0417FD312B80AD9C007098C4 /* USAMapView.swift in Sources */,
 				040EC6F02B9F41CC00C9CAA5 /* AnimatedBackgroundView.swift in Sources */,
 				0417FD212B809E90007098C4 /* ContentView.swift in Sources */,
 				0417FD1F2B809E90007098C4 /* USADriveApp.swift in Sources */,
+				0479FA7C2BA8493400915427 /* MainScreen.swift in Sources */,
 				0467FE222B87903900FCAAD9 /* BlurView.swift in Sources */,
-				0467FE202B87902800FCAAD9 /* HomeView.swift in Sources */,
 				0417FD532B81E231007098C4 /* Home.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -414,6 +426,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		042D52662BA88DC500CF00C8 /* XCRemoteSwiftPackageReference "neumorphic" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/costachung/neumorphic/";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		042D52672BA88DC500CF00C8 /* Neumorphic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 042D52662BA88DC500CF00C8 /* XCRemoteSwiftPackageReference "neumorphic" */;
+			productName = Neumorphic;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0417FD132B809E90007098C4 /* Project object */;
 }

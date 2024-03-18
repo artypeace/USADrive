@@ -36,7 +36,7 @@ struct AnimatedBackgroundView: View {
     }
 
     func image(geometry: GeometryProxy) -> some View {
-        Image("liquidballs")
+        Image("flower")
             .resizable()
             .frame(
                 width: randomFrame(geometry.size.width),
@@ -51,7 +51,7 @@ struct AnimatedBackgroundView: View {
     }
 
     func firstImage(geometry: GeometryProxy) -> some View {
-        Image("liquidballs")
+        Image("flower")
             .resizable()
             .brightness(-0.5)
             .rotationEffect(.degrees(randomDouble(in: -360...360)), anchor: .center)
